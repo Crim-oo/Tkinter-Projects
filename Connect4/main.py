@@ -149,7 +149,7 @@ class Connect4:
         self.master.delete(tkinter.ALL)
         self.circle = self.master.create_oval(0, 0, 0, 0)
         self.board = [[""] * 6 for _ in range(6)]
-        self.turn = random.choice(["O", "R"])
+        self.turn = random.choice(["B", "R"])
         self.mousePos = [(0, 0)]
         self.drawBoard()
         self.isRunning = True
