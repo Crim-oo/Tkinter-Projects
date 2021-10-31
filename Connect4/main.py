@@ -4,6 +4,8 @@ from PIL import Image, ImageTk
 import time
 import random
 
+from sqlalchemy import true
+
 WIDTH = 716
 HEIGHT = 616
 SIDE = 200
@@ -42,14 +44,6 @@ class Connect4:
         self.drawBoard()
         self.master.bind_all("<Button-1>", self.onClick)
         self.master.bind('<Motion>', lambda e: [self.motion(e), self.drawCircle(e)])
-
-    def run(self):
-        while self.isRunning:
-            side.itemconfigure(turnTxt, text=f"It's {game.colors[game.turn]} turn")
-            time.sleep(0.01)
-            root.update()
-        side.itemconfigure(turnTxt, text=f"{game.colors[game.turn]} Wins !")
-
 
     def loadAssets(self):
         try:
@@ -162,5 +156,12 @@ class Connect4:
 
 game = Connect4(canvas)
 resetButton.config(command=game.reset)
-game.run()
+while True:
+    if game.isRunning:
+        side.itemconfigure(turnTxt, text=f"It's {game.colors[game.turn]} turn")
+    else:
+        side.itemconfigure(turnTxt, text=f"{game.colors[game.turn]} Wins !")
+    time.sleep(0.01)
+    root.update()
+
 root.mainloop()
