@@ -159,9 +159,9 @@ game = Connect4(canvas)
 resetButton.config(command=game.reset)
 while True:
     if game.isRunning:
-        side.itemconfigure(turnTxt, text=f"It's {game.colors[game.turn]} turn")
+        side.itemconfigure(turnTxt, text=f"It's {game.colors[game.turn].upper()} turn")
     else:
-        side.itemconfigure(turnTxt, text=f"{game.colors[game.turn]} Wins !")
+        side.itemconfigure(turnTxt, text=f"{game.colors[game.turn].upper()} Wins !")
     time.sleep(0.01)
     root.update()
 
