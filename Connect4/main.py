@@ -21,9 +21,9 @@ side = Canvas(root, width=SIDE, height=HEIGHT, bg="#bcd4de")
 resetButton = Button(side, text="Reset", font=("courier", 15, "bold"), bd=4)
 side.pack(side=RIGHT)
 root.update()
-resetButtonWindow = side.create_window(side.winfo_width() / 2, (side.winfo_height() - side.winfo_height() / 5),
+resetButtonWindow = side.create_window(side.winfo_width() / 2, (2*side.winfo_height() /3),
                                        window=resetButton, width=100)
-turnTxt = side.create_text(side.winfo_width() / 2, side.winfo_height() / 5, font=("courier", 15, "bold"))
+turnTxt = side.create_text(side.winfo_width() / 2, side.winfo_height() / 3, font=("courier", 15, "bold"))
 
 
 class Connect4:
@@ -32,8 +32,8 @@ class Connect4:
         self.master.update()
         self.isRunning = True
 
-        self.turn = random.choice(["O", "R"])
-        self.colors = {"R": "red", "O": "orange"}
+        self.turn = random.choice(["B", "R"])
+        self.colors = {"R": "red", "B": "blue"}
         self.blockSize = 86
         self.circleRad = 60
         self.board = [[""] * 6 for _ in range(6)]
@@ -53,8 +53,8 @@ class Connect4:
             self.squareEmptyImg = Image.open("assets/empty.png")
             self.squareEmpty = ImageTk.PhotoImage(self.squareEmptyImg)
 
-            self.squareOrangeImg = Image.open("assets/orange.png")
-            self.squareOrange = ImageTk.PhotoImage(self.squareOrangeImg)
+            self.squareBlueImg = Image.open("assets/blue.png")
+            self.squareBlue = ImageTk.PhotoImage(self.squareBlueImg)
 
             self.squareRedImg = Image.open("assets/red.png")
             self.squareRed = ImageTk.PhotoImage(self.squareRedImg)
@@ -71,11 +71,11 @@ class Connect4:
                     self.master.create_image(0 + col * self.blockSize, 100 + row * self.blockSize,
                                              image=self.squareEmpty, anchor=NW)
                 elif self.board[row][col] == "R":
-                    self.master.create_image(0 + col * self.blockSize, 100 + row * self.blockSize, image=self.squareRed,
+                    self.master.create_image(col * self.blockSize - 2, 98 + row * self.blockSize, image=self.squareRed,
                                              anchor=NW)
-                elif self.board[row][col] == "O":
+                elif self.board[row][col] == "B":
                     self.master.create_image(0 + col * self.blockSize, 100 + row * self.blockSize,
-                                             image=self.squareOrange, anchor=NW)
+                                             image=self.squareBlue, anchor=NW)
 
     def drawCircle(self, event):
         self.master.delete(self.circle)
@@ -87,8 +87,8 @@ class Connect4:
 
     def changeTurn(self):
         if self.turn == "R":
-            self.turn = "O"
-        elif self.turn == "O":
+            self.turn = "B"
+        elif self.turn == "B":
             self.turn = "R"
 
     def motion(self, event):
@@ -115,6 +115,7 @@ class Connect4:
             for col in range(len(self.board[row]) - 3):
                 if self.board[row][col] == self.board[row][col + 1] == self.board[row][col + 2] == self.board[row][
                     col + 3] != "":
+
                     return True
         return False
 
